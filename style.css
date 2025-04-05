@@ -35,7 +35,7 @@ label {
 input[type="range"] {
     width: 60%;
     cursor: pointer;
-    accent-color: #6B4F3F; /* Optional for slider styling */
+    accent-color: #6B4F3F;
 }
 
 button {
