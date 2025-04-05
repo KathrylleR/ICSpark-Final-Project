@@ -3,31 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Coffee Ingredient Selector</title>
+    <title>Interactive Coffee Customization</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Enhanced Coffee Ingredient Selector</h1>
+    <h1>Interactive Coffee Customization</h1>
     <form id="coffee-form">
-        <h2>Select Your Ingredients:</h2>
-        <label><input type="checkbox" id="Espresso"> Espresso</label>
-        <label><input type="checkbox" id="Milk"> Milk</label>
-        <label><input type="checkbox" id="Foam"> Foam</label>
-        <label><input type="checkbox" id="Chocolate"> Chocolate</label>
-        <label><input type="checkbox" id="Caramel"> Caramel</label>
-        <label><input type="checkbox" id="Vanilla"> Vanilla</label>
-        <label><input type="checkbox" id="Cinnamon"> Cinnamon</label>
-        <label><input type="checkbox" id="Whipped Cream"> Whipped Cream</label>
-        <label><input type="checkbox" id="Hazelnut"> Hazelnut</label>
-        <label><input type="checkbox" id="Pumpkin Spice"> Pumpkin Spice</label>
-        <label><input type="checkbox" id="Honey"> Honey</label>
-        <button type="button" id="generate-coffee">Generate Coffee</button>
+        <h2>Ingredient Levels:</h2>
+        <label>
+            Espresso
+            <input type="range" id="Espresso" min="0" max="100" value="0">
+        </label>
+        <label>
+            Milk
+            <input type="range" id="Milk" min="0" max="100" value="0">
+        </label>
+        <label>
+            Foam
+            <input type="range" id="Foam" min="0" max="100" value="0">
+        </label>
+        <label>
+            Chocolate
+            <input type="range" id="Chocolate" min="0" max="100" value="0">
+        </label>
+        <label>
+            Caramel
+            <input type="range" id="Caramel" min="0" max="100" value="0">
+        </label>
+        <label>
+            Vanilla
+            <input type="range" id="Vanilla" min="0" max="100" value="0">
+        </label>
+        <label>
+            Whipped Cream
+            <input type="range" id="Whipped Cream" min="0" max="100" value="0">
+        </label>
     </form>
-    <div class="mug">
-        <div id="fill-level" class="fill"></div>
+
+    <div class="mug-container">
+        <div class="mug">
+            <div id="fill-level" class="fill"></div>
+        </div>
     </div>
+
+    <button id="generate-coffee">Generate Coffee</button>
+    
     <h2>Description:</h2>
     <p id="result"></p>
+
     <script src="script.js"></script>
 </body>
 </html>
