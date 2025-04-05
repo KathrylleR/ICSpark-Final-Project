@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -6,39 +7,89 @@ body {
 
 h1 {
     color: #6B4F3F;
+    font-size: 2em;
 }
 
+h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Form Styles */
 form {
-    margin: 20px;
+    margin: 30px 0;
 }
 
 label {
     display: block;
     margin: 10px 0;
     font-size: 1.1em;
+    color: #444;
 }
 
 button {
     background-color: #6B4F3F;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #54382D;
 }
 
+/* Mug Icon Styling */
+.mug {
+    margin: 40px auto;
+    width: 150px;
+    height: 200px;
+    border: 5px solid #6B4F3F; /* Mug border color */
+    border-radius: 10px;
+    background-color: #F5F5F5; /* Mug background color */
+    position: relative;
+}
+
+.fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0; /* Starts empty */
+    background-color: #6B4F3F; /* Coffee fill color */
+    transition: height 0.5s ease; /* Smooth fill effect */
+}
+
+/* Description Paragraph Styles */
 p {
     margin-top: 20px;
     font-size: 1.2em;
     color: #333;
 }
 
-h2 {
-    margin-top: 30px;
-    color: #333;
+input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #6B4F3F; 
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 10px 20px;
+    }
+
+    .mug {
+        width: 120px;
+        height: 160px;
+    }
 }
