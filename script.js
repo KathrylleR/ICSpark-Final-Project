@@ -22,31 +22,32 @@ const coffeeDescriptions = {
     "Honey": "Honey: Natural and sweet, perfect for a gentle flavor boost.",
 };
 
-document.getElementById('generate-coffee').addEventListener('click', function() {
-    const ingredients = [];
-    if (document.getElementById('espresso').checked) ingredients.push('Espresso');
-    if (document.getElementById('milk').checked) ingredients.push('Milk');
-    if (document.getElementById('foam').checked) ingredients.push('Foam');
-    if (document.getElementById('chocolate').checked) ingredients.push('Chocolate');
-    if (document.getElementById('caramel').checked) ingredients.push('Caramel');
-    if (document.getElementById('vanilla').checked) ingredients.push('Vanilla');
-    if (document.getElementById('cinnamon').checked) ingredients.push('Cinnamon');
-    if (document.getElementById('whipped-cream').checked) ingredients.push('Whipped Cream');
-    if (document.getElementById('hazelnut').checked) ingredients.push('Hazelnut');
-    if (document.getElementById('pumpkin-spice').checked) ingredients.push('Pumpkin Spice');
-    if (document.getElementById('honey').checked) ingredients.push('Honey');
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const fillLevel = document.getElementById('fill-level');
+
+function updateMugFill() {
+    const selectedIngredients = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+    const fillPercentage = selectedIngredients * 10; // Assume 10% per ingredient, capped at 100%
+    fillLevel.style.height = `${Math.min(fillPercentage, 100)}%`; // Update mug fill level
+}
+
+function generateCoffee() {
+    const ingredients = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.id);
 
     if (ingredients.length === 0) {
         document.getElementById('result').textContent = "Oops! You didn’t select any ingredients. Try adding something to make your coffee creation!";
-        return; 
+        return;
     }
 
-    const key = ingredients.join('+'); 
+    const key = ingredients.join('+'); // Combine selected ingredients into a key
     const resultText = coffeeDescriptions[key] || "Wow, you’ve created your own unique coffee blend! Be proud of your creativity!";
     document.getElementById('result').textContent = resultText;
+}
 
-    const fillLevel = document.getElementById('fill-level');
-    const selectedIngredients = ingredients.length;
-    const fillPercentage = selectedIngredients * 10; 
-    fillLevel.style.height = `${Math.min(fillPercentage, 100)}%`;
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateMugFill);
 });
+
+document.getElementById('generate-coffee').addEventListener('click', generateCoffee);
