@@ -17,6 +17,13 @@ h2 {
     font-size: 1.5em;
 }
 
+.slider-value {
+    margin-left: 10px;
+    font-size: 1em;
+    color: #6B4F3F;
+    font-weight: bold;
+}
+
 /* Form Styles */
 form {
     margin: 30px auto;
@@ -35,7 +42,7 @@ label {
 input[type="range"] {
     width: 60%;
     cursor: pointer;
-    accent-color: #6B4F3F;
+    accent-color: #6B4F3F; /* Optional for slider styling */
 }
 
 button {
@@ -74,7 +81,6 @@ button:hover {
     bottom: 0;
     width: 100%;
     height: 0;
-    background-color: #6B4F3F;
     transition: height 0.5s ease;
 }
 

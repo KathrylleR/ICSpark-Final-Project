@@ -7,40 +7,57 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Interactive Coffee Customization</h1>
+    <h1>Make Your Coffee Cup!</h1>
     <form id="coffee-form">
         <h2>Ingredient Levels:</h2>
         <label>
             Espresso
             <input type="range" id="Espresso" min="0" max="100" value="0">
+            <span id="Espresso-value" class="slider-value">0%</span>
         </label>
         <label>
             Milk
             <input type="range" id="Milk" min="0" max="100" value="0">
+            <span id="Milk-value" class="slider-value">0%</span>
         </label>
         <label>
             Foam
             <input type="range" id="Foam" min="0" max="100" value="0">
+            <span id="Foam-value" class="slider-value">0%</span>
         </label>
         <label>
             Chocolate
             <input type="range" id="Chocolate" min="0" max="100" value="0">
+            <span id="Chocolate-value" class="slider-value">0%</span>
         </label>
         <label>
             Caramel
             <input type="range" id="Caramel" min="0" max="100" value="0">
+            <span id="Caramel-value" class="slider-value">0%</span>
         </label>
         <label>
             Vanilla
             <input type="range" id="Vanilla" min="0" max="100" value="0">
+            <span id="Vanilla-value" class="slider-value">0%</span>
         </label>
         <label>
             Whipped Cream
             <input type="range" id="Whipped Cream" min="0" max="100" value="0">
+            <span id="Whipped-Cream-value" class="slider-value">0%</span>
         </label>
     </form>
 
     <div class="mug-container">
+        <div class="ingredient-bars">
+            <div id="Espresso-bar" class="ingredient-bar" style="background-color: #6B4F3F;">Espresso</div>
+            <div id="Milk-bar" class="ingredient-bar" style="background-color: #F5F5F5; color: #333;">Milk</div>
+            <div id="Foam-bar" class="ingredient-bar" style="background-color: #DCDCDC; color: #333;">Foam</div>
+            <div id="Chocolate-bar" class="ingredient-bar" style="background-color: #A0522D;">Chocolate</div>
+            <div id="Caramel-bar" class="ingredient-bar" style="background-color: #DAA520;">Caramel</div>
+            <div id="Vanilla-bar" class="ingredient-bar" style="background-color: #F3E5AB; color: #333;">Vanilla</div>
+            <div id="Whipped-Cream-bar" class="ingredient-bar" style="background-color: #FFFFFF; color: #333;">Cream</div>
+        </div>
+
         <div class="mug">
             <div id="fill-level" class="fill"></div>
         </div>

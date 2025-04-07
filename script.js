@@ -1,59 +1,88 @@
 const coffeeDescriptions = {
-    "Espresso+Milk+Foam": "Cappuccino: A classic coffee with espresso, steamed milk, and foam. Creamy and balanced!",
-    "Espresso+Milk": "Latte: Smooth and comforting espresso with lots of steamed milk.",
-    "Espresso+Milk+Chocolate": "Mocha: Espresso meets rich chocolate and creamy milk—sweet indulgence!",
-    "Espresso+Caramel": "Caramel Macchiato: Espresso blended with milk and topped with caramel sweetness.",
-    "Espresso+Vanilla": "Vanilla Latte: A smooth and aromatic coffee with vanilla and milk.",
-    "Milk+Chocolate": "Chocolate Milk: Creamy milk mixed with rich chocolate—a timeless favorite!",
-    "Espresso+Foam": "Espresso Macchiato: Strong espresso with just a hint of foam on top.",
-    "Espresso+Whipped Cream": "Affogato: Espresso topped with sweet whipped cream—a dessert-like treat.",
-    
-    "Espresso+Caramel+Vanilla": "Caramel Vanilla Latte: Sweet caramel paired with smooth vanilla for a luxurious drink.",
-    "Espresso+Milk+Foam+Chocolate": "Fancy Mocha: Espresso with steamed milk, foam, and rich chocolate—a delightful treat!",
-    "Milk+Vanilla+Whipped Cream": "Vanilla Whipped Delight: A creamy and smooth drink with milk, vanilla, and topped with whipped cream.",
-    "Espresso+Milk+Caramel+Foam": "Caramel Cappuccino: Espresso, steamed milk, foam, and a touch of caramel sweetness—balanced and aromatic!",
-    "Espresso+Chocolate+Milk+Vanilla": "Choco-Vanilla Latte: Rich espresso with chocolate, milk, and a hint of vanilla—perfect for indulgent moments!",
-    "Espresso+Foam+Vanilla+Caramel": "Sweet Vanilla Caramel Macchiato: Espresso combined with foam, vanilla, and caramel for a sweet, aromatic delight.",
-    
-    "Espresso": "Espresso: The real deal! Strong and bold, served in a small cup. Perfect for when you need a quick caffeine boost.",
-    "Milk": "Milk: Creamy and smooth on its own—a comforting drink!",
-    "Foam": "Foam: Light and fluffy—perfect for softening any coffee.",
-    "Chocolate": "Chocolate: Sweet and rich! Adds a touch of indulgence to your drink.",
-    "Caramel": "Caramel: Golden syrup that’s sweet and gooey—a joy to savor.",
-    "Vanilla": "Vanilla: Aromatic and smooth—perfect for a subtle sweetness.",
-    "Whipped Cream": "Whipped Cream: Fluffy and fun—a playful addition to any creation!"
+    "Cappuccino": "Cappuccino: A classic coffee made with approximately 30% Espresso, 50% Milk, and 20% Foam. Creamy and balanced! Originating from Italy, its name comes from the Capuchin friars, inspired by the color of their robes.",
+    "Latte": "Latte: A smooth and comforting drink with about 20% Espresso, 70% Milk, and 10% Foam. 'Latte' means 'milk' in Italian, and it became popular in the U.S. during the 1980s coffee culture boom.",
+    "Mocha": "Mocha: A sweet and indulgent blend of 25% Espresso, 50% Milk, and 25% Chocolate. Named after the Yemeni port city of Mocha, famed for its unique coffee beans with chocolatey undertones.",
+    "Caramel Macchiato": "Caramel Macchiato: Made with around 30% Espresso, 50% Milk, and 20% Caramel for a sweet finish. Introduced by Starbucks in 1996, it quickly became an iconic modern coffee drink.",
+    "Vanilla Latte": "Vanilla Latte: A smooth and aromatic coffee crafted with 30% Espresso, 60% Milk, and 10% Vanilla. This variation of the latte is beloved for its warm, sweet notes and versatility.",
+    "Affogato": "Affogato: A delightful dessert-like coffee featuring 50% Espresso and 50% Whipped Cream. Originating in Italy, it literally means 'drowned' because of the espresso poured over ice cream.",
+    "Chocolate Milk": "Chocolate Milk: A comforting, creamy classic with about 70% Milk and 30% Chocolate. Although not a coffee drink, it's a favorite of all ages, with origins dating back to the 1600s.",
+    "Caramel Latte": "Caramel Latte: A luscious blend of 30% Espresso, 60% Milk, and 10% Caramel. This sweet and creamy drink is a modern invention, popularized by coffeehouse culture.",
+    "Vanilla Mocha": "Vanilla Mocha: A rich combination of 25% Espresso, 50% Milk, 15% Chocolate, and 10% Vanilla. This twist on the traditional mocha adds an extra layer of flavor with vanilla.",
+    "Chocolate Cappuccino": "Chocolate Cappuccino: A bold twist with 30% Espresso, 40% Milk, 20% Foam, and 10% Chocolate. A decadent version of the Italian classic, appealing to chocolate lovers.",
+    "Whipped Caramel Delight": "Whipped Caramel Delight: A fun treat with 25% Espresso, 50% Milk, 15% Caramel, and 10% Whipped Cream. A playful and indulgent drink perfect for those with a sweet tooth.",
+    "Vanilla Caramel Latte": "Vanilla Caramel Latte: A decadent blend of 25% Espresso, 50% Milk, 10% Vanilla, and 15% Caramel. Combining two classic flavors, this drink offers a luxurious coffee experience.",
+    "Chocolate Vanilla Latte": "Chocolate Vanilla Latte: A balanced drink with 20% Espresso, 50% Milk, 20% Chocolate, and 10% Vanilla. A harmonious blend of sweet chocolate and aromatic vanilla.",
+    "Foamy Espresso": "Foamy Espresso: A simple yet bold drink with 50% Espresso and 50% Foam for texture. A minimalist choice that highlights the intensity of espresso.",
+    "Caramel Mocha": "Caramel Mocha: A decadent mix of 25% Espresso, 50% Milk, 15% Chocolate, and 10% Caramel. This hybrid drink blends mocha's richness with caramel's sweetness.",
+    "Vanilla Whipped Cappuccino": "Vanilla Whipped Cappuccino: A creamy, frothy delight with 30% Espresso, 40% Milk, 20% Foam, and 10% Vanilla. A whimsical variation of the cappuccino with added vanilla charm."
+};
+
+const coffeeColors = {
+    "Espresso": "#6B4F3F", // Dark brown
+    "Milk": "#F5F5F5", // Creamy white
+    "Foam": "#DCDCDC", // Light gray
+    "Chocolate": "#A0522D", // Chocolate brown
+    "Caramel": "#DAA520", // Golden caramel
+    "Vanilla": "#F3E5AB", // Pale yellow
+    "Whipped Cream": "#FFFFFF" // Pure white
 };
 
 const sliders = document.querySelectorAll('input[type="range"]');
 const fillLevel = document.getElementById('fill-level');
 
+// Update mug fill dynamically
 function updateMugFill() {
-    let totalFill = Array.from(sliders).reduce((sum, slider) => {
-        return sum + parseInt(slider.value); // Sum slider values
-    }, 0);
+    const selectedSliders = Array.from(sliders).filter(slider => parseInt(slider.value) > 0);
+    let totalFill = 0;
 
-    fillLevel.style.height = `${Math.min(totalFill, 100)}%`; // Cap the mug fill at 100%
+    const gradientColors = selectedSliders.map(slider => {
+        const percentage = parseInt(slider.value);
+        totalFill += percentage;
+        return `${coffeeColors[slider.id]} ${totalFill}%`;
+    });
+
+    fillLevel.style.height = `${Math.min(totalFill, 100)}%`; // Cap the fill level at 100%
+    fillLevel.style.background = `linear-gradient(to top, ${gradientColors.join(", ")})`;
+
+    // Update slider value indicators
+    sliders.forEach(slider => {
+        const valueDisplay = document.getElementById(`${slider.id}-value`);
+        if (valueDisplay) {
+            valueDisplay.textContent = `${slider.value}%`;
+        }
+    });
 }
 
+// Generate coffee based on slider values and a single randomized tip
 function generateCoffee() {
-    const selectedIngredients = Array.from(sliders)
-        .filter(slider => parseInt(slider.value) > 0) // Include sliders with values greater than 0
-        .map(slider => slider.id);
+    const selectedSliders = Array.from(sliders).filter(slider => parseInt(slider.value) > 0);
 
-    if (selectedIngredients.length === 0) {
+    if (selectedSliders.length === 0) {
         document.getElementById('result').textContent = "Oops! You didn’t select any ingredients. Adjust the sliders to create your coffee!";
         return;
     }
 
-    const key = selectedIngredients.join('+'); // Combine selected ingredient IDs into a key
-    const resultText = coffeeDescriptions[key] || "Wow, you’ve created your own unique coffee blend! Be proud of your creativity!";
-    document.getElementById('result').textContent = resultText;
+    // Create unique blend description
+    const uniqueBlend = selectedSliders.map(slider => `${slider.id} (${slider.value}%)`).join(", ");
+
+    // Pool of coffee combinations for a single randomized tip
+    const tipsPool = Object.entries(coffeeDescriptions).map(
+        ([coffeeName, description]) => `Tip: Try making a ${coffeeName}. ${description}`
+    );
+
+    // Select one random tip
+    const randomTip = tipsPool[Math.floor(Math.random() * tipsPool.length)];
+
+    // Display unique blend and the single randomized tip
+    document.getElementById('result').textContent = `Wow, you’ve created your own unique coffee blend with ${uniqueBlend}!
+
+    Here's an idea for your next creation:
+    
+    ${randomTip}`;
 }
 
+// Attach event listeners
 document.addEventListener('DOMContentLoaded', () => {
-    sliders.forEach(slider => {
-        slider.addEventListener('input', updateMugFill); // Update fill level in real-time
-    });
-
-    document.getElementById('generate-coffee').addEventListener('click', generateCoffee); // Generate coffee when button is clicked
+    sliders.forEach(slider => slider.addEventListener('input', updateMugFill));
+    document.getElementById('generate-coffee').addEventListener('click', generateCoffee);
 });
