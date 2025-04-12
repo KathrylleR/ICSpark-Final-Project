@@ -1,20 +1,11 @@
 const coffeeDescriptions = {
+    "Chocolate Milk": "Chocolate Milk: A creamy delight with 70% Milk and 30% Chocolate. While not a coffee drink, it's a universally loved treat offering rich, nostalgic comfort.",
     "Cappuccino": "Cappuccino: A classic coffee made with approximately 30% Espresso, 50% Milk, and 20% Foam. Creamy and balanced! Originating from Italy, its name comes from the Capuchin friars, inspired by the color of their robes.",
     "Latte": "Latte: A smooth and comforting drink with about 20% Espresso, 70% Milk, and 10% Foam. 'Latte' means 'milk' in Italian, and it became popular in the U.S. during the 1980s coffee culture boom.",
     "Mocha": "Mocha: A sweet and indulgent blend of 25% Espresso, 50% Milk, and 25% Chocolate. Named after the Yemeni port city of Mocha, famed for its unique coffee beans with chocolatey undertones.",
     "Caramel Macchiato": "Caramel Macchiato: Made with around 30% Espresso, 50% Milk, and 20% Caramel for a sweet finish. Introduced by Starbucks in 1996, it quickly became an iconic modern coffee drink.",
     "Vanilla Latte": "Vanilla Latte: A smooth and aromatic coffee crafted with 30% Espresso, 60% Milk, and 10% Vanilla. This variation of the latte is beloved for its warm, sweet notes and versatility.",
-    "Affogato": "Affogato: A delightful dessert-like coffee featuring 50% Espresso and 50% Whipped Cream. Originating in Italy, it literally means 'drowned' because of the espresso poured over ice cream.",
-    "Chocolate Milk": "Chocolate Milk: A comforting, creamy classic with about 70% Milk and 30% Chocolate. Although not a coffee drink, it's a favorite of all ages, with origins dating back to the 1600s.",
-    "Caramel Latte": "Caramel Latte: A luscious blend of 30% Espresso, 60% Milk, and 10% Caramel. This sweet and creamy drink is a modern invention, popularized by coffeehouse culture.",
-    "Vanilla Mocha": "Vanilla Mocha: A rich combination of 25% Espresso, 50% Milk, 15% Chocolate, and 10% Vanilla. This twist on the traditional mocha adds an extra layer of flavor with vanilla.",
-    "Chocolate Cappuccino": "Chocolate Cappuccino: A bold twist with 30% Espresso, 40% Milk, 20% Foam, and 10% Chocolate. A decadent version of the Italian classic, appealing to chocolate lovers.",
-    "Whipped Caramel Delight": "Whipped Caramel Delight: A fun treat with 25% Espresso, 50% Milk, 15% Caramel, and 10% Whipped Cream. A playful and indulgent drink perfect for those with a sweet tooth.",
-    "Vanilla Caramel Latte": "Vanilla Caramel Latte: A decadent blend of 25% Espresso, 50% Milk, 10% Vanilla, and 15% Caramel. Combining two classic flavors, this drink offers a luxurious coffee experience.",
-    "Chocolate Vanilla Latte": "Chocolate Vanilla Latte: A balanced drink with 20% Espresso, 50% Milk, 20% Chocolate, and 10% Vanilla. A harmonious blend of sweet chocolate and aromatic vanilla.",
-    "Foamy Espresso": "Foamy Espresso: A simple yet bold drink with 50% Espresso and 50% Foam for texture. A minimalist choice that highlights the intensity of espresso.",
-    "Caramel Mocha": "Caramel Mocha: A decadent mix of 25% Espresso, 50% Milk, 15% Chocolate, and 10% Caramel. This hybrid drink blends mocha's richness with caramel's sweetness.",
-    "Vanilla Whipped Cappuccino": "Vanilla Whipped Cappuccino: A creamy, frothy delight with 30% Espresso, 40% Milk, 20% Foam, and 10% Vanilla. A whimsical variation of the cappuccino with added vanilla charm."
+    "Affogato": "Affogato: A delightful dessert-like coffee featuring 50% Espresso and 50% Whipped Cream. Originating in Italy, it literally means 'drowned' because of the espresso poured over ice cream."
 };
 
 const coffeeColors = {
@@ -30,7 +21,10 @@ const coffeeColors = {
 const sliders = document.querySelectorAll('input[type="range"]');
 const fillLevel = document.getElementById('fill-level');
 
-// Update mug fill dynamically
+// Tolerance percentage for matching coffee blends
+const tolerance = 0.3;
+
+// Update mug fill appearance
 function updateMugFill() {
     const selectedSliders = Array.from(sliders).filter(slider => parseInt(slider.value) > 0);
     let totalFill = 0;
@@ -41,10 +35,16 @@ function updateMugFill() {
         return `${coffeeColors[slider.id]} ${totalFill}%`;
     });
 
-    fillLevel.style.height = `${Math.min(totalFill, 100)}%`; // Cap the fill level at 100%
-    fillLevel.style.background = `linear-gradient(to top, ${gradientColors.join(", ")})`;
+    if (gradientColors.length === 1) {
+        fillLevel.style.background = `linear-gradient(to top, ${gradientColors[0]}, ${gradientColors[0]})`;
+    } else if (gradientColors.length > 1) {
+        fillLevel.style.background = `linear-gradient(to top, ${gradientColors.join(", ")})`;
+    } else {
+        fillLevel.style.background = "none";
+    }
 
-    // Update slider value indicators
+    fillLevel.style.height = `${Math.min(totalFill, 100)}%`;
+
     sliders.forEach(slider => {
         const valueDisplay = document.getElementById(`${slider.id}-value`);
         if (valueDisplay) {
@@ -53,7 +53,7 @@ function updateMugFill() {
     });
 }
 
-// Generate coffee based on slider values and a single randomized tip
+// Generate coffee based on slider input
 function generateCoffee() {
     const selectedSliders = Array.from(sliders).filter(slider => parseInt(slider.value) > 0);
 
@@ -62,27 +62,73 @@ function generateCoffee() {
         return;
     }
 
-    // Create unique blend description
-    const uniqueBlend = selectedSliders.map(slider => `${slider.id} (${slider.value}%)`).join(", ");
+    const userBlend = {};
+    selectedSliders.forEach(slider => {
+        userBlend[slider.id] = parseInt(slider.value);
+    });
 
-    // Pool of coffee combinations for a single randomized tip
-    const tipsPool = Object.entries(coffeeDescriptions).map(
-        ([coffeeName, description]) => `Tip: Try making a ${coffeeName}. ${description}`
-    );
+    let closestMatch = null;
+    let smallestDifference = Infinity;
 
-    // Select one random tip
-    const randomTip = tipsPool[Math.floor(Math.random() * tipsPool.length)];
+    // Find the closest matching coffee type
+    for (const [coffeeName, coffeeDescription] of Object.entries(coffeeDescriptions)) {
+        const targetBlend = {};
+        const percentages = coffeeDescription.match(/\d+%/g);
+        const ingredients = Object.keys(coffeeColors);
+        if (percentages) {
+            percentages.forEach((percentage, index) => {
+                targetBlend[ingredients[index]] = parseInt(percentage.replace('%', ''));
+            });
+        }
 
-    // Display unique blend and the single randomized tip
-    document.getElementById('result').textContent = `Wow, you’ve created your own unique coffee blend with ${uniqueBlend}!
+        // Calculate the total difference between user blend and target blend
+        let totalDifference = 0;
+        for (const ingredient of Object.keys(coffeeColors)) {
+            const userPercentage = userBlend[ingredient] || 0;
+            const targetPercentage = targetBlend[ingredient] || 0;
+            totalDifference += Math.abs(userPercentage - targetPercentage);
+        }
 
-    Here's an idea for your next creation:
-    
-    ${randomTip}`;
+        // Check if this coffee is the closest match so far
+        if (totalDifference < smallestDifference) {
+            closestMatch = coffeeName;
+            smallestDifference = totalDifference;
+        }
+    }
+
+    // Display the result with the coffee description
+    if (closestMatch) {
+        const coffeeDescription = coffeeDescriptions[closestMatch];
+        document.getElementById('result').textContent = `Your blend is similar to: ${closestMatch}\n\nDescription: ${coffeeDescription}`;
+    } else {
+        document.getElementById('result').textContent = "Couldn't find a similar coffee type. Try adjusting your blend!";
+    }
 }
 
-// Attach event listeners
+function suggestRandomCoffee() {
+    const coffeeNames = Object.keys(coffeeDescriptions);
+    const randomIndex = Math.floor(Math.random() * coffeeNames.length);
+    const randomCoffee = coffeeNames[randomIndex];
+    const coffeeDescription = coffeeDescriptions[randomCoffee];
+
+    // Extract ingredient hints based on percentages
+    const hint = [];
+    const percentages = coffeeDescription.match(/\d+%/g);
+    const ingredients = Object.keys(coffeeColors);
+    if (percentages) {
+        percentages.forEach((percentage, index) => {
+            const ingredient = ingredients[index];
+            hint.push(`${percentage} ${ingredient}`);
+        });
+    }
+
+    const hintText = hint.length > 0 ? `Hint: Mix ${hint.join(", ")}.` : "Hint: Explore the flavors and experiment!";
+    
+    document.getElementById('suggestions').textContent = `How about trying: ${randomCoffee}?\n\n${hintText}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     sliders.forEach(slider => slider.addEventListener('input', updateMugFill));
     document.getElementById('generate-coffee').addEventListener('click', generateCoffee);
+    document.getElementById('suggest-random-coffee').addEventListener('click', suggestRandomCoffee);
 });
