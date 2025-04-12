@@ -46,7 +46,8 @@ function updateMugFill() {
     fillLevel.style.height = `${Math.min(totalFill, 100)}%`;
 
     sliders.forEach(slider => {
-        const valueDisplay = document.getElementById(`${slider.id}-value`);
+        // Use quotes to reference ID with space
+        const valueDisplay = document.getElementById(`${slider.id.replace(" ", "-")}-value`);
         if (valueDisplay) {
             valueDisplay.textContent = `${slider.value}%`;
         }
@@ -105,6 +106,7 @@ function generateCoffee() {
     }
 }
 
+// Suggest a single random coffee type with ingredient hints
 function suggestRandomCoffee() {
     const coffeeNames = Object.keys(coffeeDescriptions);
     const randomIndex = Math.floor(Math.random() * coffeeNames.length);
